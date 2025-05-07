@@ -7,7 +7,7 @@ import (
 )
 
 type PostService interface {
-	GetPosts(filter *payload.FilterPostRequest) ([]*model.Post, error)
+	GetPosts(filter *payload.FilterPostRequest) ([]*payload.PostResponse, error)
 	CreatePost(post *payload.PostRequest) error
 	GetPostByID(id string) (*payload.PostResponse, error)
 	UpdatePost(id string, post *payload.UpdatePostRequest) error
@@ -24,13 +24,24 @@ func NewPostService(repo repo.PostRepo) PostService {
 	}
 }
 
-func (p *postService) GetPosts(filter *payload.FilterPostRequest) ([]*model.Post, error) {
+func (p *postService) GetPosts(filter *payload.FilterPostRequest) ([]*payload.PostResponse, error) {
 	data, err := p.repo.GetPosts(filter)
 	if err != nil {
 		return nil, err
 	}
-
-	return data, nil
+	posts := make([]*payload.PostResponse, 0)
+	for _, post := range data {
+		posts = append(posts, &payload.PostResponse{
+			ID:          post.ID,
+			Title:       post.Title,
+			Content:     post.Content,
+			Category:    post.Category,
+			CreatedDate: post.CreatedDate.Format("2006-01-02 15:04:05"),
+			UpdatedDate: post.UpdatedDate.Format("2006-01-02 15:04:05"),
+			Status:      post.Status,
+		})
+	}
+	return posts, nil
 }
 
 func (p *postService) CreatePost(post *payload.PostRequest) error {
@@ -90,9 +101,12 @@ func (p *postService) DeletePost(id string) error {
 		return err
 	}
 
-	err = p.repo.DeletePost(id)
+	err = p.repo.UpdatePost(id, &model.Post{
+		Status: "Trash",
+	})
 	if err != nil {
 		return err
 	}
+
 	return nil
 }

@@ -25,12 +25,12 @@ type PostResponse struct {
 }
 
 type FilterPostRequest struct {
-	Title    string `json:"title,omitempty"`
-	Content  string `json:"content,omitempty"`
-	Category string `json:"category,omitempty"`
-	Status   string `json:"status,omitempty"`
-	Limit    int    `json:"limit,omitempty"`
-	Offset   int    `json:"offset,omitempty"`
+	Title    string `form:"title,omitempty"`
+	Content  string `form:"content,omitempty"`
+	Category string `form:"category,omitempty"`
+	Status   string `form:"status,omitempty"`
+	Limit    int    `form:"limit,omitempty"`
+	Offset   int    `form:"offset,omitempty"`
 }
 
 type SuccessResponse struct {

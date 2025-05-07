@@ -16,11 +16,13 @@ func NewRouter() *gin.Engine {
 
 func corsMiddleware(c *gin.Context) {
 	origin := c.Request.Header.Get("Origin")
+	reffer := c.Request.Header.Get("Referer")
+
 	if origin == "" {
-		return
+		origin = reffer
 	}
 
-	if c.Request.Method == http.MethodOptions {
+	if c.Request.Method == http.MethodOptions || c.Request.Method == http.MethodHead {
 		h := c.Writer.Header()
 		h.Set("Access-Control-Allow-Origin", origin)
 		h.Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,HEAD")
@@ -32,4 +34,5 @@ func corsMiddleware(c *gin.Context) {
 
 	h := c.Writer.Header()
 	h.Set("Access-Control-Allow-Origin", origin)
+	c.Next()
 }

@@ -1,0 +1,17 @@
+.layout {
+  min-height: 100vh;
+}
+
+.logo {
+  color: #fff !important;
+  font-size: 20px;
+  line-height: 32px;
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.site-layout-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 360px;
+}

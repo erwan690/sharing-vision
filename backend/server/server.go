@@ -28,13 +28,11 @@ func Init() {
 
 	r := NewRouter()
 
-	article := r.Group("/article")
-
-	article.GET("/", handler.GetAllPosts)
-	article.GET("/:id", handler.GetPostByID)
-	article.POST("/", handler.CreatePost)
-	article.PUT("/:id", handler.UpdatePost)
-	article.DELETE("/:id", handler.DeletePost)
+	r.GET("/article", handler.GetAllPosts)
+	r.GET("/article/:id", handler.GetPostByID)
+	r.POST("/article", handler.CreatePost)
+	r.PUT("/article/:id", handler.UpdatePost)
+	r.DELETE("/article/:id", handler.DeletePost)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
