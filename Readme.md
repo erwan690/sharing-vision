@@ -21,17 +21,19 @@ This repository contains the code and resources for the SharingVision Test proje
     ```
 
 ### Backend Setup
-1. Navigate to the `backend` folder:
+1. Install Golang Migrate:
+    ```bash
+    go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+    ```
+2. Run database migrations using Golang Migrate:
     ```bash
     cd backend
+
+    make migrate-up
     ```
-2. Build the Go application:
+3. Run the Go application:
     ```bash
-    go build
-    ```
-3. Run the API server:
-    ```bash
-    ./backend
+    go run .
     ```
 
 ### Frontend Setup
