@@ -17,7 +17,7 @@ This repository contains the code and resources for the SharingVision Test proje
     ```
 2. Navigate to the project directory:
     ```bash
-    cd SharingVision-Blog
+    cd sharing-vision
     ```
 
 ### Backend Setup
